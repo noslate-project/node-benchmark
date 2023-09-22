@@ -1,0 +1,110 @@
+# Copyright (C) <2023-2023> Intel Corporation
+# SPDX-License-Identifier: MIT
+
+
+NODE_DOCKER_PATH: "node/build/auto_parameter"
+NODE_VERSION: "v18.14.2"
+
+IMAGE_STORAGE_PATH : "storage"
+
+docker_path:
+  fc_startup: "fc-startup/faas-base"
+  fc_startup_cache: "fc-startup/faas-opt"
+  webtooling: "webtooling"
+  ghost_http: "ghost/http"
+  ghost_https: "ghost/https"
+  ghost_https_nginx: "ghost/nginx"
+  nextjs_stateless: "nextjs"
+  nextjs_stateless_big: "nextjs"
+  ssr_calcom: "ssr-calcom"
+  ssr_v1: "ssr-v1"
+  base64: "base64"
+  nodeio: "nodeio"
+  pgo: "generate_pgo"
+  bolt: "generate_bolt"
+
+generate_pgo:
+  cmd: ""
+  cpu: 8
+
+fc_startup:
+  cmd: "fc-startup/run.sh"
+  cpu: 8
+  image: 
+  node_run_flags: 
+  result_name: "Average start up time per instance"
+  result_dir: "fc-startup/results"
+
+fc_startup_cache:
+  cmd: "fc-startup/run.sh"
+  cpu: 8
+  image: 
+  node_run_flags: 
+  result_name: "Average start up time per instance"
+  result_dir: "fc-startup/results"
+
+
+webtooling:
+  cmd: "webtooling/webtooling.sh"
+  breakdown: "webtooling/module_breakdown.sh"
+  cpu: 4
+  image: "webtooling:official"
+  node_run_flags: ""
+  result_name: "Average TPS"
+  result_dir: "webtooling/results"
+  result_breakdown_dir: "webtooling/breakdown-results"
+
+ghost_http:
+  cmd: "ghost/ghostjs.sh"
+  breakdown: "ghost/module_breakdown.sh"
+  cpu: 1
+  image: "ghost-http:official"
+  node_version: "v18.14.2"
+  protocol: "http"
+  opt_type: "base"
+  result_name: "Total TPS"
+  result_dir: "ghost/results"
+  result_breakdown_dir: "ghost/breakdown-results"
+
+ghost_https:
+  cmd: "ghost/ghostjs.sh"
+  breakdown: "ghost/module_breakdown.sh"
+  cpu: 1
+  image: "ghost-https:official"
+  node_version: "v18.14.2"
+  protocol: "https"
+  opt_type: "base"
+  result_name: "Total TPS"
+  result_dir: "ghost/results"
+  result_breakdown_dir: "ghost/breakdown-results"
+
+ghost_https_nginx:
+  cmd: "ghost/ghostjs.sh"
+  breakdown: "ghost/module_breakdown.sh"
+  cpu: 1
+  image: "ghost-https-nginx:official"
+  node_version: "v18.14.2"
+  protocol: "https"
+  opt_type: "base"
+  result_name: "Total TPS"
+  result_dir: "ghost/results"
+  result_breakdown_dir: "ghost/breakdown-results"
+
+ssr_calcom:
+  cmd: "ssr-calcom/ssr.sh"
+  breakdown: "ssr-calcom/module_breakdown.sh"
+  result_dir: "ssr-calcom/results"
+  result_name: "Total RPS"
+  result_breakdown_dir: "ssr-calcom/breakdown-results"
+
+base64:
+  cmd: "base64/base64.sh"
+  result_dir: "base64/results"
+  result_name: "Total RPS"
+  breakdown: "base64/module_breakdown.sh"
+  result_breakdown_dir: "base64/breakdown-results"
+
+nodeio:
+  cmd: "nodeio/nodeio.sh"
+  result_dir: "nodeio/results"
+  result_name: "Total RPS"

@@ -1,0 +1,54 @@
+#!/bin/bash
+# Copyright (C) <2023-2023> Intel Corporation
+# SPDX-License-Identifier: MIT
+
+
+# $1: scripts directory
+# $2: where to store output
+# $3: Node.js command line -- make sure you quote it if it has arguments, like "../node --use-largepages=on"
+# $4: Prefix to use for output files. Must not contain periods.
+# $5: How many iterations to run
+# $6: Ghost.js root (directory containing current/ and config file)
+# $7: Ghost.js version (version/???)
+# $8: Timeout between warmup and measurement. '' to wait until the user presses Enter.
+# $9: numbers indicating how many processes to run, e.g. 1 2 5 10 20 50 75
+# $the_rest: protocols to use: http or https
+
+SCRIPTS_DIRECTORY="$1"
+shift
+WHERE="$1"
+shift
+NODE_COMMAND_LINE="$1"
+shift
+PREFIX="$1"
+shift
+ITERS="$1"
+shift
+GHOST_ROOT="$1"
+shift
+GHOST_VERSION="$1"
+shift
+TIMEOUT="$1"
+shift
+PROCESS_COUNT="$1"
+shift
+PROTOCOL="$@"
+
+PORT_NUMBER=8000
+if [ "$PROTOCOL" == "https" ]; then
+   PORT_NUMBER=8080
+fi
+
+for COUNT in ${PROCESS_COUNT}; do
+  for ((ITER=0; ITER < ${ITERS}; ITER++)); do
+    ITER_PREFIX="${PREFIX}.$(printf "%03d" ${COUNT})-processes-iteration-$(printf "%03d" ${ITER})"
+    # Note: ${NODE_COMMAND_LINE} is intentionally not in double quotes.
+    "${SCRIPTS_DIRECTORY}"/launch-ghost.sh ${COUNT} 2368 "${WHERE}" "${ITER_PREFIX}" "${GHOST_ROOT}" "${GHOST_VERSION}" "${SCRIPTS_DIRECTORY}" ${NODE_COMMAND_LINE} || exit 1
+    "${SCRIPTS_DIRECTORY}"/launch-ab.sh ${COUNT} ${PORT_NUMBER} "SAMEPORT" "${WHERE}" "${ITER_PREFIX}" "${PROTOCOL}" "${TIMEOUT}" "${SCRIPTS_DIRECTORY}" "${ITER}" || exit 1
+
+    # launch-ghost.sh produces these files
+    kill $(cat "${WHERE}"/*.pid | awk '{print $1;}')
+    rm -f $(cat "${WHERE}"/*.pid | awk '{print $2;}')
+    rm -f "${WHERE}"/*.pid
+  done
+done
