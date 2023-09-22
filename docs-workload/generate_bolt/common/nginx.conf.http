@@ -1,0 +1,38 @@
+worker_processes 2; #vcpus?
+
+# Place this file into icx-opt-work/nginx_install/sbin and then run
+# /usr/sbin/nginx -c $(pwd)/nginx.conf
+
+# load_module /home/nix/icx-opt-work/nginx_install/modules/ngx_ssl_engine_qat_module.so;
+
+error_log /home/ubuntu/nginx/error_log;
+pid /home/ubuntu/nginx/pid;
+
+worker_rlimit_nofile 1000000;
+
+events {
+  use epoll;
+  worker_connections 8192;
+  multi_accept on;
+  accept_mutex on;
+}
+
+http {
+  upstream ghost {
+    server localhost:2368;
+  }
+  #ssl_buffer_size 65536;
+  sendfile on;
+  server {
+    listen 8000;
+    keepalive_timeout 0s;
+    tcp_nopush on;
+    tcp_nodelay on;
+    lingering_close off;
+    lingering_time 1;
+
+    location / {
+      proxy_pass http://ghost;
+    }
+  }
+}

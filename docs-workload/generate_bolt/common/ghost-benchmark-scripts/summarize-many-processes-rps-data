@@ -1,0 +1,37 @@
+#!/bin/bash
+# Copyright (C) <2023-2023> Intel Corporation
+# SPDX-License-Identifier: MIT
+
+DIR="$1"
+
+RUNS=$(ls "${DIR}" | grep -v '\.pid' | grep -v 'cpu-util' | sed 's/\..*$//' | sort -u)
+
+for RUN in ${RUNS}; do
+  echo "${RUN}:"
+  NPROCESSES=$(ls -d "${RUN}".* | sed -r "s/^${RUN}.([0-9]+)-processes-.*$/\1/" | sort -u) #"
+  for NPROCESS in ${NPROCESSES}; do
+    echo -e "nprocess:\t${NPROCESS}"
+    ITERATIONS=$(ls -d "${RUN}".${NPROCESS}-processes-iteration-* | sed -r "s/${RUN}.${NPROCESS}-processes-iteration-([0-9]+).*$/\1/" | sort -u) #"
+    for ITERATION in ${ITERATIONS}; do
+      cat "${RUN}.${NPROCESS}-processes-iteration-${ITERATION}."*/ab \
+        | grep -E '^(Requests|Failed|Complete)'                      \
+        | awk -v total_failed=0 -v total_rps=0 -v total_complete=0 '{
+          if ($1 == "Requests") total_rps += $4;
+          if ($1 == "Failed") total_failed += $3;
+          if ($1 == "Complete") total_complete += $3;
+        } END {
+          print "Total_RPS:\t" total_rps
+          print "Total_%failed:\t" ((total_failed / total_complete) * 100)
+        }'
+    done | awk -v count=0 -v total_rps=0 -v total_pfailed=0 '{
+      if ($1 == "Total_RPS:") {
+        count++;
+        total_rps += $2;
+      }
+      if ($1 == "Total_%failed:") total_pfailed += $2;
+    } END {
+      print "Average RPS (" count "):\t" (total_rps / count)
+      print "Average %failed (" count "):\t" (total_pfailed / count)
+    }'
+  done
+done

@@ -1,0 +1,15 @@
+diff --git a/common.gypi b/common.gypi
+index cbf9c3810d..2d05c832e0 100644
+--- a/common.gypi
++++ b/common.gypi
+@@ -170,8 +170,8 @@
+       'Release': {
+         'variables': {
+           'v8_enable_handle_zapping': 0,
+-          'pgo_generate': ' -fprofile-generate ',
+-          'pgo_use': ' -fprofile-use -fprofile-correction ',
++          'pgo_generate': ' -fprofile-generate -fprofile-dir=/home/ubuntu/work/node/pgodata ',
++          'pgo_use': ' -fprofile-use -fprofile-correction -fprofile-dir=/home/ubuntu/work/node/pgodata ',
+           'conditions': [
+             ['node_shared != "true"', {
+               'MSVC_runtimeType': 0    # MultiThreaded (/MT)
