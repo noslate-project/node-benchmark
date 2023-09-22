@@ -20,7 +20,7 @@ Within this framework, you will find the following folders and files:
 
 - `tools`: This directory contains utility scripts that are utilized by the manual-run scripts. It's not necessary for users to directly invoke these scripts.
 
-- `docs-workload`: User manual of writing workloads.
+- `workloads`: User manual of writing workloads.
 
 - `LICENSE`: The License file outlining the terms and conditions governing the use of this framework.
 
@@ -30,7 +30,7 @@ Within this framework, you will find the following folders and files:
 
 A workload typically consists of a Dockerfile and specific scripts for running and profiling. In the Dockerfile, the workflow typically involves downloading the workload code from a public source and building the workload from its source code.
 
-For a more detailed guide on how to create workloads, please refer to the `docs-workload` folder This folder provides comprehensive instructions for workload development. It will guide you to create efficient workloads that seamlessly integrate with the framework.
+For a more detailed guide on how to create workloads, please refer to the `workloads` folder This folder provides comprehensive instructions for workload development. It will guide you to create efficient workloads that seamlessly integrate with the framework.
 
 ## How to configure workloads
 
