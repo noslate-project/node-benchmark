@@ -1,7 +1,3 @@
-This is the user guide to install and apply PGO optimization for Node.js. This opt can make node.js obtaining branch opt information for all supported workloads so as to run workloads faster.
-
-```
-
 FROM ubuntu:22.04
 
 ENV USERNAME="ubuntu"
@@ -138,8 +134,3 @@ RUN CC='gcc -no-pie -fno-PIE -fno-reorder-blocks-and-partition -fcf-protection=n
 
 WORKDIR /home/${USERNAME}
 COPY --chown=${USERNAME}:root start.sh /home/${USERNAME}/start.sh
-```
-
-
-Please be noted the ghost workload needs DB to be prepared ahead of time. As in the user manual document in ghost folder, you need to fill in some data in the DB.
-You need to copy the `ghost.dump` and put the file into `genererate_pgo/common` folder.

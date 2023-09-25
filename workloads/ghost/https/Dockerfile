@@ -1,6 +1,3 @@
-This is the user guide to download Ghost workload from public repo, and build the https working mode. It also downloads the ab tools as the client, and install the necessary DB as required by ghost official website.
-
-```
 ARG BASIC_IMAGE="node:latest"
 FROM ${BASIC_IMAGE}
 
@@ -137,4 +134,3 @@ WORKDIR /home/${USERNAME}/Ghost
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD [ "bash" ]
-```
