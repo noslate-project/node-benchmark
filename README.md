@@ -1,3 +1,8 @@
+<a href="https://scan.coverity.com/projects/node-js-workload-suite">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/30664/badge.svg"/>
+</a>
+
 # Dragon-Creek Node.js performance suites
 
 The Dragon-Creek Node.js performance suites provide a framework for contructing and measuring node.js workloads performance and a few workloads are already included. As the major target is server side performance,  the workload is normally packed as Docker container, and the execution modes covers single instance for single core performance and multiple instances for full cores performance.
