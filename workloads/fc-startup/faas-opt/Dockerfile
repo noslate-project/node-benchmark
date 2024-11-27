@@ -1,6 +1,3 @@
-This is the user guide to install the FaaS Function Computing Framework Startup benchmark, and apply the opt of bytecode cache to reduce the start up time.
-```
-
 # Usage: FROM [image name]
 ARG BASIC_IMAGE=
 FROM ${BASIC_IMAGE}
@@ -37,4 +34,3 @@ COPY --chown=${USERNAME}:root ./common/quickrun_allcache.sh /home/${USERNAME}/qu
 COPY --chown=${USERNAME}:root ./common/allcache.js /home/${USERNAME}/
 
 RUN npm install
-```

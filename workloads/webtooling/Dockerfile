@@ -1,6 +1,3 @@
-This is the user guide to download webtooling workload and compose the Dockerfile:
-
-```
 # Set up an Ubuntu image with 'web tooling' installed
 ARG BASIC_IMAGE="node:latest"
 FROM ${BASIC_IMAGE}
@@ -41,6 +38,3 @@ COPY ./common/breakdown.sh /home/ubuntu/web-tooling-benchmark/breakdown.sh
 COPY ./common/perf_module_breakdown.py /home/ubuntu/web-tooling-benchmark/perf_module_breakdown.py
 
 WORKDIR /home/ubuntu/web-tooling-benchmark/
-```
-
-In this folder, we also provides some py and sh script to seamlessly run and profile this workload.

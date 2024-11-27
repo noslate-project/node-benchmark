@@ -1,7 +1,3 @@
-This is the user guide to install the Base64 Encoding benchmark
-
-```
-
 ARG BASIC_IMAGE=
 FROM ${BASIC_IMAGE}
 
@@ -21,4 +17,3 @@ COPY ./scripts/common.js /home/ubuntu/work/common.js
 COPY ./scripts/perf_module_breakdown.py /home/perf_module_breakdown.py
 
 RUN npm install -g npm
-```

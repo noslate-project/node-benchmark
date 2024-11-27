@@ -1,6 +1,3 @@
-This is the user guide to install the FaaS Function Computing Framework Startup benchmark
-
-```
 # Usage: FROM [image name]
 ARG BASIC_IMAGE=
 FROM ${BASIC_IMAGE}
@@ -36,4 +33,3 @@ COPY --chown=${USERNAME}:root ./common/package.json /home/${USERNAME}/
 COPY --chown=${USERNAME}:root ./common/quickrun.sh /home/${USERNAME}/
 
 RUN npm install
-```

@@ -1,6 +1,3 @@
-This is the user guide to download and build Node.js. The Node.js repos and branchs are configured in framework.
-
-```
 ARG BASIC_IMAGE="ubuntu:22.04"
 FROM ${BASIC_IMAGE}
 
@@ -70,5 +67,3 @@ RUN ./apply_bolt.sh ${BOLT_USE} ${LLVM_VERSION} ${LLVM_URL} ${BOLT_FILE}
 
 WORKDIR /home/ubuntu/work
 CMD /usr/local/bin/node
-
-```

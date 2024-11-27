@@ -1,7 +1,3 @@
-This is the user guide to download Ghost workload from public repo, and build the https working mode with Async Ngnix web server to do load balance and https request decryption. 
-
-```
-
 ARG BASIC_IMAGE=
 
 ####################################################################
@@ -208,4 +204,3 @@ WORKDIR /home/${USERNAME}/Ghost
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD [ "bash" ]
-```
